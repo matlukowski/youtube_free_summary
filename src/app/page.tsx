@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { Youtube, FileText, AlertTriangle } from "lucide-react";
+import { Youtube, FileText, AlertTriangle, Home } from "lucide-react";
 import { TranscriptForm } from "~/app/_components/TranscriptForm";
 import { TranscriptTabs } from "~/app/_components/TranscriptTabs";
 import { YouTubePlayer } from "~/app/_components/YouTubePlayer";
@@ -11,7 +11,7 @@ import { TranscriptHistory } from "~/app/_components/TranscriptHistory";
 import { api } from "~/trpc/react";
 import type { TranscriptData, TranscriptSummary } from "~/types/transcript";
 
-export default function Home() {
+export default function HomePage() {
   const [currentTranscript, setCurrentTranscript] = useState<TranscriptData | null>(null);
   const [selectedTranscriptId, setSelectedTranscriptId] = useState<string | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<"en" | "pl">("pl");
@@ -47,18 +47,28 @@ export default function Home() {
         <header className="backdrop-blur-sm bg-white/90 dark:bg-slate-800/90 border-b border-slate-200/60 dark:border-slate-700/60 shadow-sm sticky top-0 z-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
             <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3 min-w-0 flex-1">
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <Youtube className="h-6 w-6 sm:h-8 sm:w-8 text-red-600" />
-                  <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent truncate">
-                    YouTube Free Summary
-                  </h1>
-                  <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm hidden sm:block">
-                    Darmowe podsumowania filmów YouTube za pomocą lokalnego AI
-                  </p>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => window.location.reload()}
+                  className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-100/70 dark:bg-slate-700/70 hover:bg-slate-200/80 dark:hover:bg-slate-600/80 border border-slate-200/50 dark:border-slate-600/50 backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] touch-manipulation group"
+                  title="Strona główna"
+                >
+                  <Home className="h-5 w-5 sm:h-6 sm:w-6 text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors duration-200" />
+                </button>
+
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <Youtube className="h-6 w-6 sm:h-8 sm:w-8 text-red-600" />
+                    <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent truncate">
+                      YouTube Free Summary
+                    </h1>
+                    <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm hidden sm:block">
+                      Darmowe podsumowania filmów YouTube za pomocą lokalnego AI
+                    </p>
+                  </div>
                 </div>
               </div>
               <LanguageSwitcher

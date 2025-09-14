@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+
+model Transcript {
+    id          String   @id @default(cuid())
+    youtubeUrl  String
+    videoTitle  String?
+    transcript  String
+    language    String?
+    createdAt   DateTime @default(now())
+
+    // Relations
+    summary      TranscriptSummary?
+
+    @@index([createdAt])
+}
+
+model TranscriptSummary {
+    id           String   @id @default(cuid())
+    transcriptId String   @unique
+    summary      String
+    model        String   // which AI model was used
+    createdAt    DateTime @default(now())
+
+    // Relations
+    transcript Transcript @relation(fields: [transcriptId], references: [id], onDelete: Cascade)
+}
+

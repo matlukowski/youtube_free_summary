@@ -57,56 +57,56 @@ export function TranscriptHistory({ onSelectTranscript }: TranscriptHistoryProps
 
   if (isLoading) {
     return (
-      <div className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+      <div className="w-full bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border border-slate-200/60 dark:border-slate-700/60 rounded-xl shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50">
         <LoadingSpinnerFull message="Ładowanie historii..." />
       </div>
     );
   }
 
   return (
-    <div className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm">
+    <div className="w-full bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border border-slate-200/60 dark:border-slate-700/60 rounded-xl shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50">
       {/* Header */}
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="p-4 border-b border-slate-200/60 dark:border-slate-700/60">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Clock className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+            <Clock className="h-5 w-5 text-slate-600 dark:text-slate-400" />
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
               Ostatnie transkrypty
             </h3>
             {historyData && (
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                ({historyData.total})
+              <span className="text-sm text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-full">
+                {historyData.total}
               </span>
             )}
           </div>
 
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="sm:hidden flex items-center gap-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+            className="sm:hidden flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 bg-slate-100/70 dark:bg-slate-700/70 hover:bg-slate-200 dark:hover:bg-slate-600 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95"
           >
             {isExpanded ? (
               <>
                 <ChevronUp className="h-4 w-4" />
-                Ukryj
+                <span className="font-medium">Ukryj</span>
               </>
             ) : (
               <>
                 <ChevronDown className="h-4 w-4" />
-                Pokaż
+                <span className="font-medium">Pokaż</span>
               </>
             )}
           </button>
         </div>
 
         {/* Search */}
-        <div className={`relative ${!isExpanded ? "hidden sm:block" : ""}`}>
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+        <div className={`relative group ${!isExpanded ? "hidden sm:block" : ""}`}>
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 group-hover:text-slate-500 transition-colors duration-200" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Szukaj transkryptów..."
-            className="w-full pl-9 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-9 pr-4 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50/70 dark:bg-slate-700/70 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-sm focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:border-transparent hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-200"
           />
         </div>
       </div>
@@ -115,8 +115,10 @@ export function TranscriptHistory({ onSelectTranscript }: TranscriptHistoryProps
       <div className={`${!isExpanded ? "hidden sm:block" : ""}`}>
         {filteredTranscripts.length === 0 ? (
           <div className="p-8 text-center">
-            <Clock className="h-12 w-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-600 dark:text-gray-400">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 mb-4">
+              <Clock className="h-7 w-7 text-slate-400 dark:text-slate-500" />
+            </div>
+            <p className="text-slate-600 dark:text-slate-400 font-medium">
               {searchTerm
                 ? "Brak transkryptów pasujących do wyszukiwania"
                 : "Brak transkryptów. Pobierz pierwszy transkrypt, aby zacząć!"}
@@ -128,32 +130,32 @@ export function TranscriptHistory({ onSelectTranscript }: TranscriptHistoryProps
               <div
                 key={transcript.id}
                 onClick={() => onSelectTranscript(transcript)}
-                className="p-4 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors group"
+                className="p-4 border-b border-slate-100/60 dark:border-slate-700/60 hover:bg-slate-50/70 dark:hover:bg-slate-700/50 cursor-pointer transition-all duration-200 group hover:shadow-sm hover:-translate-y-0.5"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate mb-1">
+                    <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
                       {transcript.videoTitle || "Film bez tytułu"}
                     </h4>
 
-                    <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-2">
-                      <span>{format(new Date(transcript.createdAt), "MMM d, h:mm a")}</span>
+                    <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-2">
+                      <span className="font-medium">{format(new Date(transcript.createdAt), "MMM d, h:mm a")}</span>
                       {transcript.language && (
-                        <span className="bg-gray-100 dark:bg-gray-600 px-1.5 py-0.5 rounded">
+                        <span className="bg-slate-100 dark:bg-slate-600 text-slate-700 dark:text-slate-300 px-2 py-1 rounded-full text-xs font-medium">
                           {transcript.language.toUpperCase()}
                         </span>
                       )}
                     </div>
 
-                    <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate font-mono bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded">
                       {new URL(transcript.youtubeUrl).hostname}
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <button
                       onClick={(e) => handleOpenVideo(transcript.youtubeUrl, e)}
-                      className="p-1.5 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      className="p-2 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95"
                       title="Otwórz film"
                     >
                       <ExternalLink className="h-4 w-4" />
@@ -161,7 +163,7 @@ export function TranscriptHistory({ onSelectTranscript }: TranscriptHistoryProps
 
                     <button
                       onClick={(e) => handleDelete(transcript.id, e)}
-                      className="p-1.5 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                      className="p-2 text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                       title="Usuń transkrypt"
                       disabled={deleteTranscriptMutation.isPending}
                     >
@@ -176,8 +178,8 @@ export function TranscriptHistory({ onSelectTranscript }: TranscriptHistoryProps
 
         {/* Load More */}
         {historyData?.hasMore && (
-          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-            <button className="w-full text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
+          <div className="p-4 border-t border-slate-200/60 dark:border-slate-700/60">
+            <button className="w-full text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-100 dark:hover:bg-blue-950/40 py-3 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
               Załaduj więcej transkryptów
             </button>
           </div>
